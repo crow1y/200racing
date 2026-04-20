@@ -1,54 +1,25 @@
 // ============================================================
 // FIREBASE CONFIG – 200 Racing
-// ------------------------------------------------------------
-// INSTRUÇÕES DE SETUP:
-// 1. Acesse https://console.firebase.google.com
-// 2. Crie um projeto chamado "200racing"
-// 3. Ative Authentication → Sign-in method → Google
-// 4. Ative Firestore Database (modo production)
-// 5. Vá em Configurações do projeto → Seus apps → Web
-// 6. Copie o firebaseConfig e substitua abaixo
-// 7. No Firestore, defina estas regras de segurança:
-//
-//    rules_version = '2';
-//    service cloud.firestore {
-//      match /databases/{database}/documents {
-//        match /products/{id} {
-//          allow read: if true;
-//          allow write: if request.auth != null &&
-//            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-//        }
-//        match /orders/{id} {
-//          allow read, write: if request.auth != null &&
-//            (request.auth.uid == resource.data.userId ||
-//             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
-//          allow create: if request.auth != null;
-//        }
-//        match /users/{uid} {
-//          allow read, write: if request.auth != null && request.auth.uid == uid;
-//          allow read: if request.auth != null &&
-//            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-//        }
-//      }
-//    }
+// ⚠️ SUBSTITUA OS VALORES ABAIXO PELAS SUAS CHAVES DO FIREBASE
 // ============================================================
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDkAfoUslO4cG1HcUi5Xhqg9oXoEc525i4",
-  authDomain: "racing-1409d.firebaseapp.com",
-  projectId: "racing-1409d",
-  storageBucket: "racing-1409d.firebasestorage.app",
-  messagingSenderId: "788815063880",
-  appId: "1:788815063880:web:42c908e34fd997195f617d"
-};
-
-// Import via CDN (usado nos HTMLs com type="module")
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc,
   addDoc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ── SUBSTITUA AQUI com suas chaves do Firebase Console ──────
+const firebaseConfig = {
+  apiKey: "SUBSTITUA_AQUI",
+  authDomain: "SUBSTITUA_AQUI",
+  projectId: "SUBSTITUA_AQUI",
+  storageBucket: "SUBSTITUA_AQUI",
+  messagingSenderId: "SUBSTITUA_AQUI",
+  appId: "SUBSTITUA_AQUI"
+};
+// ────────────────────────────────────────────────────────────
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
