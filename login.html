@@ -185,12 +185,14 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 <script src="js/shared.js"></script>
 <script type="module">
 import {
-  auth, loginWithGoogle, onAuthStateChanged, getCurrentUserRole,
-  db, doc, setDoc, serverTimestamp
+  auth, loginWithGoogle, onAuthStateChanged, getCurrentUserRole, db
 } from './js/firebase-config.js';
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  doc, setDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // Redirect if already logged in
 onAuthStateChanged(auth, async (user) => {
