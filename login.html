@@ -195,6 +195,28 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // Redirect if already logged in
+
+// Update drawer auth state
+function updateDrawerAuth(user, role) {
+  const loginLink = document.getElementById('drawer-login-link');
+  const userArea = document.getElementById('drawer-user-area');
+  if (user) {
+    if (loginLink) loginLink.style.display = 'none';
+    if (userArea) {
+      userArea.style.display = 'flex';
+      const photo = userArea.querySelector('.drawer-user-photo');
+      const name = document.getElementById('drawer-user-name');
+      const roleEl = document.getElementById('drawer-user-role');
+      if (photo && user.photoURL) photo.src = user.photoURL;
+      if (name) name.textContent = user.displayName?.split(' ')[0] || 'Usuário';
+      if (roleEl) roleEl.textContent = role === 'admin' ? 'Administrador' : 'Cliente';
+    }
+  } else {
+    if (loginLink) loginLink.style.display = 'flex';
+    if (userArea) userArea.style.display = 'none';
+  }
+}
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     const role = await getCurrentUserRole(user.uid);
@@ -274,6 +296,36 @@ window.registerEmail = async function() {
     btn.disabled = false; btn.textContent = 'Criar Conta →';
   }
 };
+</script>
+
+<script>
+function toggleDrawer() {
+  const d = document.getElementById('side-drawer');
+  const o = document.getElementById('drawer-overlay');
+  const b = document.getElementById('hamburger-btn');
+  const isOpen = d.classList.contains('open');
+  if (isOpen) {
+    d.classList.remove('open');
+    o.classList.remove('open');
+    b.classList.remove('open');
+    document.body.style.overflow = '';
+  } else {
+    d.classList.add('open');
+    o.classList.add('open');
+    b.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+function closeDrawer() {
+  document.getElementById('side-drawer')?.classList.remove('open');
+  document.getElementById('drawer-overlay')?.classList.remove('open');
+  document.getElementById('hamburger-btn')?.classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close on resize to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900) closeDrawer();
+});
 </script>
 </body>
 </html>
