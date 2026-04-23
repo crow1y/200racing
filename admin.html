@@ -804,6 +804,35 @@ window.deleteGalleryPhoto = async function(id) {
 };
 
 
+
+// Export firebase functions to global scope for gallery/racing scripts
+window._db = db;
+window._collection = collection;
+window._getDocs = getDocs;
+window._updateDoc = updateDoc;
+window._doc = doc;
+window._serverTimestamp = serverTimestamp;
+window._addDoc = addDoc;
+window._deleteDoc = deleteDoc;
+window._where = where;
+window._query = query;
+window._orderBy = orderBy;
+</script>
+
+<script>
+// Gallery & Racing functions (global scope)
+// Use window._ prefixed firebase functions
+const db = window._db || {};
+const collection = window._collection || (()=>{});
+const getDocs = window._getDocs || (()=>Promise.resolve({docs:[]}));
+const updateDoc = window._updateDoc || (()=>Promise.resolve());
+const doc = window._doc || (()=>{});
+const serverTimestamp = window._serverTimestamp || (()=>null);
+const addDoc = window._addDoc || (()=>Promise.resolve({id:'local'}));
+const deleteDoc = window._deleteDoc || (()=>Promise.resolve());
+const where = window._where || (()=>{});
+const query = window._query || (()=>{});
+const orderBy = window._orderBy || (()=>{});
 // ════════════════════════════════════════════════════
 // GALERIA ADMIN
 // ════════════════════════════════════════════════════
@@ -1129,6 +1158,7 @@ window.showSection = function(section, el) {
   if (section === 'gallery') loadGalAdmin();
   if (section === 'racing') loadRacingAdmin();
 };
+
 </script>
 
 <script>
