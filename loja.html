@@ -3,152 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loja – 200 Racing</title>
+<title>Catálogo – 200 Racing</title>
+<meta name="description" content="Catálogo de produtos 200 Racing – pneus, escapamentos, capacetes, macacões, luvas, pastilhas, óleos e muito mais.">
 <link rel="stylesheet" href="css/global.css">
 <style>
 body { padding-top: var(--nav-h); }
 
-/* HERO LOJA */
-.loja-hero {
-  background: var(--dark); padding: 60px 80px 48px;
+/* ── HERO ─────────────────────────────────────────────── */
+.catalogo-hero {
+  background: var(--dark); padding: 56px 80px 44px;
   border-bottom: 1px solid var(--border);
-  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
 }
-.loja-hero-title { font-family: var(--font-display); font-size: clamp(48px, 6vw, 88px); letter-spacing: 1px; line-height: .9; }
-.loja-hero-title span { color: var(--red); }
-.loja-search {
-  display: flex; gap: 0; max-width: 380px; width: 100%;
+.catalogo-hero-title { font-family: var(--font-display); font-size: clamp(44px,6vw,84px); letter-spacing: 1px; line-height: .9; }
+.catalogo-hero-title span { color: var(--red); }
+.catalogo-search {
+  display: flex; gap: 0; max-width: 360px; width: 100%;
 }
-.loja-search input {
+.catalogo-search input {
   flex: 1; background: var(--panel); border: 1px solid var(--border2); border-right: none;
-  color: var(--white); padding: 14px 18px;
+  color: var(--white); padding: 13px 16px;
   font-family: var(--font-body); font-size: 14px; outline: none;
 }
-.loja-search input::placeholder { color: var(--grey); }
-.loja-search input:focus { border-color: var(--red); }
-.loja-search button {
-  background: var(--red); border: none; padding: 0 20px;
-  color: var(--white); font-size: 16px; cursor: pointer;
-  transition: background .2s;
+.catalogo-search input::placeholder { color: var(--grey); }
+.catalogo-search input:focus { border-color: var(--red); }
+.catalogo-search button {
+  background: var(--red); border: none; padding: 0 18px;
+  color: var(--white); font-size: 16px; cursor: pointer; transition: background .2s;
 }
-.loja-search button:hover { background: #c01015; }
+.catalogo-search button:hover { background: #c01015; }
 
-/* LAYOUT */
-.loja-body {
-  display: grid; grid-template-columns: 260px 1fr;
-  min-height: calc(100vh - var(--nav-h) - 200px);
+/* ── LAYOUT ────────────────────────────────────────────── */
+.catalogo-body {
+  display: grid; grid-template-columns: 250px 1fr;
+  min-height: calc(100vh - var(--nav-h) - 160px);
 }
 
-/* SIDEBAR CATEGORIAS */
+/* ── SIDEBAR ───────────────────────────────────────────── */
 .cat-sidebar {
   background: var(--panel); border-right: 1px solid var(--border);
-  padding: 32px 0; position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h)); overflow-y: auto;
+  padding: 28px 0;
+  position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h)); overflow-y: auto;
 }
 .cat-sidebar-title {
   font-family: var(--font-cond); font-size: 10px; font-weight: 700;
   letter-spacing: 4px; text-transform: uppercase; color: var(--grey);
-  padding: 0 24px 16px;
+  padding: 0 22px 14px;
 }
 .cat-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 13px 24px; cursor: pointer;
+  display: flex; align-items: center; gap: 11px; padding: 12px 22px;
   font-family: var(--font-cond); font-size: 13px; font-weight: 700;
   letter-spacing: 1.5px; text-transform: uppercase; color: var(--grey);
-  transition: all .2s; border-left: 3px solid transparent;
+  cursor: pointer; transition: all .2s; border-left: 3px solid transparent;
 }
 .cat-item:hover { color: var(--white); background: var(--panel2); }
 .cat-item.active { color: var(--white); border-left-color: var(--red); background: var(--panel2); }
-.cat-item-icon { font-size: 18px; filter: grayscale(1); transition: filter .2s; }
+.cat-item-icon { font-size: 17px; filter: grayscale(1); transition: filter .2s; }
 .cat-item:hover .cat-item-icon, .cat-item.active .cat-item-icon { filter: grayscale(0); }
-.cat-divider { height: 1px; background: var(--border); margin: 8px 0; }
+.cat-divider { height: 1px; background: var(--border); margin: 6px 0; }
+.cat-count-badge {
+  margin-left: auto; background: var(--border); color: var(--grey);
+  font-family: var(--font-cond); font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; padding: 2px 7px; border-radius: 10px;
+}
+.cat-item.active .cat-count-badge { background: var(--red); color: var(--white); }
 
-/* PRODUCTS AREA */
-.products-area { padding: 40px 48px; }
+/* ── PRODUCTS AREA ─────────────────────────────────────── */
+.products-area { padding: 36px 44px; }
 .products-header {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 32px; flex-wrap: wrap; gap: 14px;
+  margin-bottom: 28px; flex-wrap: wrap; gap: 12px;
 }
-.products-title { font-family: var(--font-display); font-size: 32px; letter-spacing: 1px; }
-.products-count { font-family: var(--font-cond); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); }
+.products-title { font-family: var(--font-display); font-size: 30px; letter-spacing: 1px; }
+.products-meta { display: flex; align-items: center; gap: 16px; }
+.products-count { font-family: var(--font-cond); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); }
 .sort-select {
   background: var(--panel); border: 1px solid var(--border2); color: var(--lgrey);
-  padding: 10px 14px; font-family: var(--font-cond); font-size: 12px; font-weight: 700;
+  padding: 9px 14px; font-family: var(--font-cond); font-size: 11px; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase; outline: none; cursor: pointer;
 }
 
-/* PRODUCT GRID */
+/* ── PRODUCT GRID ──────────────────────────────────────── */
 .products-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px;
   background: var(--border);
 }
 .product-card {
   background: var(--panel); display: flex; flex-direction: column;
   transition: background .25s; position: relative; overflow: hidden;
+  cursor: pointer;
 }
 .product-card:hover { background: var(--panel2); }
 .product-card-img {
   aspect-ratio: 4/3; background: var(--dark);
   display: flex; align-items: center; justify-content: center;
-  font-size: 52px; overflow: hidden; position: relative;
+  font-size: 48px; overflow: hidden; position: relative;
 }
 .product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
 .product-card:hover .product-card-img img { transform: scale(1.04); }
 .product-badge {
-  position: absolute; top: 12px; left: 12px;
-  background: var(--red); color: var(--white); padding: 4px 10px;
-  font-family: var(--font-cond); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  position: absolute; top: 10px; left: 10px;
+  background: var(--red); color: var(--white); padding: 3px 9px;
+  font-family: var(--font-cond); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
 }
-.product-card-body { padding: 20px 20px 24px; flex: 1; display: flex; flex-direction: column; }
-.product-cat { font-family: var(--font-cond); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); margin-bottom: 6px; }
-.product-name { font-family: var(--font-cond); font-size: 16px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-.product-desc { font-size: 12px; font-weight: 300; color: var(--grey); line-height: 1.5; margin-bottom: 16px; flex: 1; }
-.product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-.product-price { font-family: var(--font-display); font-size: 24px; color: var(--red); letter-spacing: 1px; }
-.product-price small { font-size: 13px; color: var(--grey); }
-.btn-add-cart {
-  background: var(--red); color: var(--white); border: none; padding: 10px 16px;
-  font-family: var(--font-cond); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  cursor: pointer; transition: background .2s;
+.product-card-body { padding: 18px 18px 20px; flex: 1; display: flex; flex-direction: column; }
+.product-cat { font-family: var(--font-cond); font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); margin-bottom: 5px; }
+.product-name { font-family: var(--font-cond); font-size: 15px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; line-height: 1.2; }
+.product-desc { font-size: 12px; font-weight: 300; color: var(--grey); line-height: 1.55; margin-bottom: 14px; flex: 1; }
+.product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; gap: 8px; }
+.product-price { font-family: var(--font-display); font-size: 22px; color: var(--red); letter-spacing: 1px; }
+.product-price.no-price { font-family: var(--font-cond); font-size: 11px; color: var(--grey); letter-spacing: 2px; }
+.btn-consultar {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #25D366; color: var(--white); border: none; padding: 9px 14px;
+  font-family: var(--font-cond); font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; transition: background .2s; white-space: nowrap; text-decoration: none;
 }
-.btn-add-cart:hover { background: #c01015; }
-.btn-add-cart:disabled { background: var(--border2); color: var(--grey); cursor: not-allowed; }
+.btn-consultar:hover { background: #1ebe5a; }
+.btn-consultar svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
 
-/* EMPTY STATE */
+/* ── EMPTY STATE ───────────────────────────────────────── */
 .empty-state {
-  grid-column: 1 / -1; text-align: center; padding: 80px 20px;
+  grid-column: 1/-1; text-align: center; padding: 80px 20px;
 }
-.empty-icon { font-size: 56px; margin-bottom: 20px; filter: grayscale(1); }
-.empty-title { font-family: var(--font-display); font-size: 32px; letter-spacing: 1px; margin-bottom: 12px; }
-.empty-sub { font-size: 14px; color: var(--grey); }
+.empty-icon { font-size: 52px; margin-bottom: 16px; filter: grayscale(1); }
+.empty-title { font-family: var(--font-display); font-size: 28px; letter-spacing: 1px; margin-bottom: 10px; }
+.empty-sub { font-size: 13px; color: var(--grey); }
 
-/* LOADING STATE */
-.loading-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: var(--border); }
+/* ── SKELETON ──────────────────────────────────────────── */
 .skeleton-card { background: var(--panel); }
 .skeleton-img { aspect-ratio: 4/3; background: var(--border); animation: pulse 1.4s ease-in-out infinite; }
-.skeleton-body { padding: 20px; }
-.skeleton-line { height: 12px; background: var(--border); margin-bottom: 10px; animation: pulse 1.4s ease-in-out infinite; border-radius: 2px; }
-.skeleton-line.short { width: 60%; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+.skeleton-body { padding: 18px; }
+.skeleton-line { height: 11px; background: var(--border); margin-bottom: 9px; animation: pulse 1.4s ease-in-out infinite; border-radius: 2px; }
+.skeleton-line.short { width: 55%; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-/* PRODUCT DETAIL MODAL */
-.product-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.product-detail-img { background: var(--dark); display: flex; align-items: center; justify-content: center; min-height: 280px; font-size: 72px; overflow: hidden; }
-.product-detail-img img { width: 100%; height: 100%; object-fit: cover; }
-.product-detail-info { padding: 36px; }
-.detail-cat { font-family: var(--font-cond); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); margin-bottom: 8px; }
-.detail-name { font-family: var(--font-display); font-size: 32px; letter-spacing: 1px; margin-bottom: 12px; line-height: 1; }
-.detail-price { font-family: var(--font-display); font-size: 38px; color: var(--red); letter-spacing: 1px; margin-bottom: 16px; }
-.detail-desc { font-size: 13px; font-weight: 300; color: var(--lgrey); line-height: 1.7; margin-bottom: 24px; }
+/* ── PRODUCT DETAIL MODAL ──────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.88);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .25s;
+  padding: 20px;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--panel); border: 1px solid var(--border2);
+  width: 100%; max-width: 640px;
+  transform: translateY(16px); transition: transform .25s;
+  max-height: 90vh; overflow-y: auto;
+}
+.modal-overlay.open .modal { transform: none; }
+.modal-img {
+  width: 100%; aspect-ratio: 16/9; background: var(--dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 72px; overflow: hidden;
+}
+.modal-img img { width: 100%; height: 100%; object-fit: cover; }
+.modal-body { padding: 28px 32px 32px; }
+.modal-cat { font-family: var(--font-cond); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); margin-bottom: 6px; }
+.modal-name { font-family: var(--font-display); font-size: 32px; letter-spacing: 1px; margin-bottom: 10px; line-height: 1; }
+.modal-price { font-family: var(--font-display); font-size: 36px; color: var(--red); letter-spacing: 1px; margin-bottom: 14px; }
+.modal-price.no-price { font-family: var(--font-cond); font-size: 12px; color: var(--grey); letter-spacing: 3px; }
+.modal-desc { font-size: 14px; font-weight: 300; color: var(--lgrey); line-height: 1.7; margin-bottom: 24px; }
+.modal-close-btn {
+  position: sticky; top: 0; float: right; margin: 12px 12px 0 0;
+  width: 32px; height: 32px; background: var(--panel2); border: 1px solid var(--border2);
+  color: var(--lgrey); font-size: 18px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 2; border-radius: 50%;
+}
+.modal-close-btn:hover { color: var(--white); border-color: var(--grey); }
 
+/* ── RESPONSIVE ────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .loja-hero { padding: 40px 24px 32px; flex-direction: column; align-items: flex-start; }
-  .loja-body { grid-template-columns: 1fr; }
-  .cat-sidebar { position: static; height: auto; overflow-x: auto; white-space: nowrap; display: flex; padding: 16px 0; border-right: none; border-bottom: 1px solid var(--border); }
+  .catalogo-hero { padding: 40px 20px 32px; }
+  .catalogo-body { grid-template-columns: 1fr; }
+  .cat-sidebar {
+    position: static; height: auto; overflow-x: auto;
+    white-space: nowrap; display: flex; padding: 12px 0;
+    border-right: none; border-bottom: 1px solid var(--border);
+  }
   .cat-sidebar-title { display: none; }
-  .cat-item { padding: 10px 16px; border-left: none; border-bottom: 3px solid transparent; }
+  .cat-item { padding: 10px 14px; border-left: none; border-bottom: 3px solid transparent; flex-shrink: 0; }
   .cat-item.active { border-bottom-color: var(--red); border-left-color: transparent; }
-  .products-area { padding: 28px 20px; }
-  .product-detail { grid-template-columns: 1fr; }
+  .cat-count-badge { display: none; }
+  .products-area { padding: 24px 16px; }
+  .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 }
 </style>
 </head>
@@ -214,100 +255,39 @@ body { padding-top: var(--nav-h); }
       <img src="data:image/png;base64,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g5BII7hEScrLnQtwHufEOhByB+ij6yqqaiVj3O+z03WbSXeohAbJiVvr1+ay/abVWf30Yjee5GPxCaXdWuDVtHFpy3UcPJ44OJnZ36qL1jXU8k1OGu52Odl2/bChnWaGQc1PU7euHfiF0y2mtH2XtkA6e9+qxMNeHTHPHf8AE+7bd5aVklOzIaXnA+9TVvrKmq+pDsF23VVs2yva7m8HfzDh+q7oWXiJ2Y2yNI77LlyceeXh9roPUOk6f/yY2/b/ACyq9mLg6N5BMewWPeo/EomNb2OV8vo7rLIZHtPMepLwvttoq5P76doHxJXPHpsty2vXzevcGXHnhjhf4v0/yw6Wo8OkijJIdFIHtVmZrAU0TBRUQlqTJ4j3zbtJHQADqFFC2UNP71VUZ9CeX+qG5UNMOWkg5j5gY/Hqu94cbd18DLreS2XHtrw+6tl1vVW+ruU5aXu5iCMfJo6Lgy2+2tIhxLN55yfn2UbV3Gpqchz+Rn8LdgsRdZJO0ebPLLPK5ZXdrIrKuaqfmV23Zo6BY6IiCIiAiIgIiICItofRs5/9uK3w38jv2a/B5uXH1kfdS3WNvylv2myTdk+emr0RFQREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREHLXFpy0kH0KyIq6rj+zUP+BOfzWMiCTF6qwPsQn7j+qftuq/4cPyP6qMRBIyXmrezlAjYfNoOfxKxJKqpk+3PIfTm2XSiAiIgIiICIiAiIgIiICIiArhwn1Rb9J6gqbhcYaqWKWkdC0U7WudzF7HZPMRthpVPRTKbll+Pb7kurL8hERUEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAXZTwzVErYYIpJZHfZYxpcT36Bda3V9Deemh4q1IHsYuz7XK21PqscrZueMvxno7wRN92fNQaVREVBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQF9RvfG8PY5zXDoWnBXyiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiIP/Z" alt="200 Racing">
       <div class="drawer-brand">200 <span>RACING</span></div>
     </div>
-    <button class="drawer-close" onclick="closeDrawer()">×</button>
-  </div>
-
-  <nav class="drawer-nav">
-    <a href="index.html" class="drawer-nav-item ">
-      <span class="drawer-icon">🏠</span> Início
-    </a>
-    <a href="index.html#servicos" class="drawer-nav-item" onclick="closeDrawer()">
-      <span class="drawer-icon">🔧</span> Serviços
-    </a>
-    <a href="racing.html" class="drawer-nav-item ">
-      <span class="drawer-icon">🏁</span> Racing
-    </a>
-    <a href="galeria.html" class="drawer-nav-item ">
-      <span class="drawer-icon">📸</span> Galeria
-    </a>
-    <a href="index.html#contato" class="drawer-nav-item" onclick="closeDrawer()">
-      <span class="drawer-icon">📍</span> Contato
-    </a>
-
-    <div class="drawer-divider"></div>
-    <div class="drawer-nav-section">Loja</div>
-
-    <a href="loja.html" class="drawer-nav-item active">
-      <span class="drawer-icon">🛒</span> Ver tudo
-    </a>
-    <div class="drawer-sub">
-      <a href="loja.html?cat=pneus" class="drawer-sub-item" onclick="closeDrawer()">🔘 Pneus</a>
-      <a href="loja.html?cat=escapamentos" class="drawer-sub-item" onclick="closeDrawer()">💨 Escapamentos</a>
-      <a href="loja.html?cat=capacetes" class="drawer-sub-item" onclick="closeDrawer()">⛑️ Capacetes</a>
-      <a href="loja.html?cat=macacoes" class="drawer-sub-item" onclick="closeDrawer()">🏁 Macacões</a>
-      <a href="loja.html?cat=luvas" class="drawer-sub-item" onclick="closeDrawer()">🧤 Luvas</a>
-      <a href="loja.html?cat=pastilhas" class="drawer-sub-item" onclick="closeDrawer()">🔩 Pastilhas</a>
-      <a href="loja.html?cat=oleos" class="drawer-sub-item" onclick="closeDrawer()">🛢️ Óleos</a>
-      <a href="loja.html?cat=cavaletes" class="drawer-sub-item" onclick="closeDrawer()">🔧 Cavaletes</a>
-      <a href="loja.html?cat=pecas" class="drawer-sub-item" onclick="closeDrawer()">⚙️ Peças</a>
-      <a href="loja.html?cat=limpeza" class="drawer-sub-item" onclick="closeDrawer()">🧴 Limpeza</a>
-    </div>
-
-    <div class="drawer-divider"></div>
-    <a href="login.html" class="drawer-nav-item" id="drawer-login-link">
-      <span class="drawer-icon">👤</span> Entrar / Cadastrar
-    </a>
-    <div class="drawer-user-area" id="drawer-user-area" style="display:none">
-      <img class="drawer-user-photo" src="" alt="">
-      <div class="drawer-user-info">
-        <div class="drawer-user-name" id="drawer-user-name">Usuário</div>
-        <div class="drawer-user-role" id="drawer-user-role">Cliente</div>
-      </div>
-      <button onclick="handleLogout()" style="font-family:var(--font-cond);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);background:none;border:none;cursor:pointer">Sair</button>
-    </div>
-  </nav>
-
-  <div class="drawer-footer">
-    <a href="https://wa.me/5562998646666" target="_blank" class="drawer-wa-btn">
-      💬 WhatsApp
-    </a>
-    <div style="text-align:center;font-family:var(--font-cond);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey)">
-      📍 Rua 200b · Goiânia – GO
-    </div>
-  </div>
-</div>
 
 <!-- HERO -->
-<div class="loja-hero">
+<div class="catalogo-hero">
   <div>
-    <div class="section-label" style="margin-bottom:12px">Catálogo Completo</div>
-    <div class="loja-hero-title">NOSSA<br><span>LOJA</span></div>
+    <div class="section-label" style="margin-bottom:12px">Catálogo de Produtos</div>
+    <div class="catalogo-hero-title">NOSSA<br><span>LOJA</span></div>
   </div>
-  <div class="loja-search">
+  <div class="catalogo-search">
     <input type="text" id="search-input" placeholder="Buscar produto..." oninput="filterProducts()">
     <button onclick="filterProducts()">🔍</button>
   </div>
 </div>
 
 <!-- BODY -->
-<div class="loja-body">
+<div class="catalogo-body">
   <!-- SIDEBAR -->
   <aside class="cat-sidebar" id="cat-sidebar">
     <div class="cat-sidebar-title">Categorias</div>
-    <div class="cat-item active" data-cat="all" onclick="selectCategory('all', this)">
-      <span class="cat-item-icon">🏍️</span> Todos os Produtos
+    <div class="cat-item active" data-cat="all" onclick="selectCategory('all',this)">
+      <span class="cat-item-icon">🏍️</span> Todos
+      <span class="cat-count-badge" id="count-all">–</span>
     </div>
     <div class="cat-divider"></div>
-    <div class="cat-item" data-cat="pneus" onclick="selectCategory('pneus', this)"><span class="cat-item-icon">🔘</span> Pneus</div>
-    <div class="cat-item" data-cat="escapamentos" onclick="selectCategory('escapamentos', this)"><span class="cat-item-icon">💨</span> Escapamentos</div>
-    <div class="cat-item" data-cat="capacetes" onclick="selectCategory('capacetes', this)"><span class="cat-item-icon">⛑️</span> Capacetes</div>
-    <div class="cat-item" data-cat="macacoes" onclick="selectCategory('macacoes', this)"><span class="cat-item-icon">🏁</span> Macacões</div>
-    <div class="cat-item" data-cat="luvas" onclick="selectCategory('luvas', this)"><span class="cat-item-icon">🧤</span> Luvas</div>
-    <div class="cat-item" data-cat="pastilhas" onclick="selectCategory('pastilhas', this)"><span class="cat-item-icon">🔩</span> Pastilhas de Freio</div>
-    <div class="cat-item" data-cat="oleos" onclick="selectCategory('oleos', this)"><span class="cat-item-icon">🛢️</span> Óleos & Fluidos</div>
-    <div class="cat-item" data-cat="cavaletes" onclick="selectCategory('cavaletes', this)"><span class="cat-item-icon">🔧</span> Cavaletes</div>
-    <div class="cat-item" data-cat="pecas" onclick="selectCategory('pecas', this)"><span class="cat-item-icon">⚙️</span> Peças</div>
-    <div class="cat-item" data-cat="limpeza" onclick="selectCategory('limpeza', this)"><span class="cat-item-icon">🧴</span> Produtos de Limpeza</div>
+    <div class="cat-item" data-cat="pneus" onclick="selectCategory('pneus',this)"><span class="cat-item-icon">🔘</span> Pneus<span class="cat-count-badge" id="count-pneus">–</span></div>
+    <div class="cat-item" data-cat="escapamentos" onclick="selectCategory('escapamentos',this)"><span class="cat-item-icon">💨</span> Escapamentos<span class="cat-count-badge" id="count-escapamentos">–</span></div>
+    <div class="cat-item" data-cat="capacetes" onclick="selectCategory('capacetes',this)"><span class="cat-item-icon">⛑️</span> Capacetes<span class="cat-count-badge" id="count-capacetes">–</span></div>
+    <div class="cat-item" data-cat="macacoes" onclick="selectCategory('macacoes',this)"><span class="cat-item-icon">🏁</span> Macacões<span class="cat-count-badge" id="count-macacoes">–</span></div>
+    <div class="cat-item" data-cat="luvas" onclick="selectCategory('luvas',this)"><span class="cat-item-icon">🧤</span> Luvas<span class="cat-count-badge" id="count-luvas">–</span></div>
+    <div class="cat-item" data-cat="pastilhas" onclick="selectCategory('pastilhas',this)"><span class="cat-item-icon">🔩</span> Pastilhas<span class="cat-count-badge" id="count-pastilhas">–</span></div>
+    <div class="cat-item" data-cat="oleos" onclick="selectCategory('oleos',this)"><span class="cat-item-icon">🛢️</span> Óleos<span class="cat-count-badge" id="count-oleos">–</span></div>
+    <div class="cat-item" data-cat="cavaletes" onclick="selectCategory('cavaletes',this)"><span class="cat-item-icon">🔧</span> Cavaletes<span class="cat-count-badge" id="count-cavaletes">–</span></div>
+    <div class="cat-item" data-cat="pecas" onclick="selectCategory('pecas',this)"><span class="cat-item-icon">⚙️</span> Peças<span class="cat-count-badge" id="count-pecas">–</span></div>
+    <div class="cat-item" data-cat="limpeza" onclick="selectCategory('limpeza',this)"><span class="cat-item-icon">🧴</span> Limpeza<span class="cat-count-badge" id="count-limpeza">–</span></div>
   </aside>
 
   <!-- PRODUCTS -->
@@ -317,41 +297,27 @@ body { padding-top: var(--nav-h); }
         <div class="products-title" id="cat-title">Todos os Produtos</div>
         <div class="products-count" id="products-count">Carregando...</div>
       </div>
-      <select class="sort-select" id="sort-select" onchange="renderProducts()">
-        <option value="name">Nome A–Z</option>
-        <option value="price_asc">Menor preço</option>
-        <option value="price_desc">Maior preço</option>
-      </select>
+      <div class="products-meta">
+        <select class="sort-select" id="sort-select" onchange="renderProducts()">
+          <option value="name">Nome A–Z</option>
+          <option value="price_asc">Menor preço</option>
+          <option value="price_desc">Maior preço</option>
+        </select>
+      </div>
     </div>
     <div id="products-container">
-      <div class="loading-grid">
-        ${Array(8).fill(0).map(()=>`<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>`).join('')}
+      <div class="products-grid">
+        <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div><div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div><div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div><div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div><div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div><div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div><div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div><div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
       </div>
     </div>
   </main>
 </div>
 
-<!-- PRODUCT DETAIL MODAL -->
-<div class="modal-overlay" id="product-modal" onclick="closeProductModal(event)">
-  <div class="modal" style="max-width:700px;padding:0;overflow:hidden" onclick="event.stopPropagation()">
-    <div class="product-detail" id="modal-content"></div>
-  </div>
-</div>
-
-<!-- CART SIDEBAR -->
-<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
-<div class="cart-sidebar" id="cart-sidebar">
-  <div class="cart-header">
-    <div class="cart-title">CARRINHO</div>
-    <button class="cart-close-btn" onclick="closeCart()">×</button>
-  </div>
-  <div class="cart-items" id="cart-items-list"></div>
-  <div class="cart-footer">
-    <div class="cart-total">
-      <span class="cart-total-label">Total</span>
-      <span class="cart-total-val" id="cart-total-val">R$ 0,00</span>
-    </div>
-    <button class="btn-checkout" onclick="goCheckout()">Finalizar Pedido →</button>
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="product-modal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close-btn" onclick="closeModal()">×</button>
+    <div id="modal-content"></div>
   </div>
 </div>
 
@@ -362,24 +328,26 @@ body { padding-top: var(--nav-h); }
     <div class="footer-brand-name">200 <span>RACING</span></div>
     <div class="footer-tagline">Oficina & Loja · Alta & Média Cilindrada</div>
   </div>
-
   <nav class="footer-links">
     <a href="index.html">Início</a>
     <a href="index.html#servicos">Serviços</a>
-    <a href="loja.html">Loja</a>
+    <a href="loja.html">Catálogo</a>
     <a href="racing.html">Racing</a>
     <a href="galeria.html">Galeria</a>
     <a href="index.html#contato">Contato</a>
-    <a href="login.html">Minha Conta</a>
   </nav>
-
   <div class="footer-divider"></div>
-
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 200 Racing · Goiânia – GO</div>
     <div class="footer-contact">📱 (62) 9 9864-6666 · Rua 200b, CEP 74645-090</div>
   </div>
 </footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5562998646666" target="_blank" class="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="wa-float-tooltip">Fale conosco</span>
+</a>
 
 <script src="js/shared.js"></script>
 <script type="module">
@@ -388,7 +356,6 @@ import { auth, onAuthStateChanged, getCurrentUserRole, logout, getProducts } fro
 let allProducts = [];
 let currentCategory = 'all';
 
-// Check URL param
 const urlCat = new URLSearchParams(window.location.search).get('cat');
 if (urlCat) {
   currentCategory = urlCat;
@@ -399,29 +366,6 @@ if (urlCat) {
   document.getElementById('cat-title').textContent = catLabel;
 }
 
-// Auth
-
-// Update drawer auth state
-function updateDrawerAuth(user, role) {
-  const loginLink = document.getElementById('drawer-login-link');
-  const userArea = document.getElementById('drawer-user-area');
-  if (user) {
-    if (loginLink) loginLink.style.display = 'none';
-    if (userArea) {
-      userArea.style.display = 'flex';
-      const photo = userArea.querySelector('.drawer-user-photo');
-      const name = document.getElementById('drawer-user-name');
-      const roleEl = document.getElementById('drawer-user-role');
-      if (photo && user.photoURL) photo.src = user.photoURL;
-      if (name) name.textContent = user.displayName?.split(' ')[0] || 'Usuário';
-      if (roleEl) roleEl.textContent = role === 'admin' ? 'Administrador' : 'Cliente';
-    }
-  } else {
-    if (loginLink) loginLink.style.display = 'flex';
-    if (userArea) userArea.style.display = 'none';
-  }
-}
-
 onAuthStateChanged(auth, async (user) => {
   const role = user ? await getCurrentUserRole(user.uid) : null;
   updateNavAuth(user, role);
@@ -429,78 +373,86 @@ onAuthStateChanged(auth, async (user) => {
 });
 window.handleLogout = async () => { await logout(); };
 
-// Load products from Firebase
 async function loadProducts() {
   try {
     allProducts = await getProducts();
     if (allProducts.length === 0) loadDemoProducts();
-    renderProducts();
   } catch(e) {
     loadDemoProducts();
-    renderProducts();
   }
+  updateCountBadges();
+  renderProducts();
 }
 
 function loadDemoProducts() {
-  // Demo products — replace with real Firebase data
   allProducts = [
-    { id:'p1', name:'Pirelli Diablo Rosso IV', category:'pneus', price:890, description:'Pneu traseiro de alto desempenho para uso em pista e rua. 190/55 ZR17', imageUrl:'', badge:'Destaque' },
-    { id:'p2', name:'Michelin Power RS', category:'pneus', price:720, description:'Pneu esportivo para motos de alta cilindrada. Excelente aderência em pista seca.', imageUrl:'' },
-    { id:'p3', name:'Akrapovic Slip-On S1000RR', category:'escapamentos', price:3200, description:'Escapamento esportivo em titânio com homologação. Som e performance incomparáveis.', imageUrl:'', badge:'Premium' },
-    { id:'p4', name:'Arrow Dark Pro-Race', category:'escapamentos', price:2400, description:'Escapamento de alto desempenho, construção em alumínio de aviação.', imageUrl:'' },
-    { id:'p5', name:'KYT NF-R', category:'capacetes', price:1100, description:'Capacete integral de alta performance. Aprovado ECE 22.06. Viseira anti-embaçamento.', imageUrl:'', badge:'KYT' },
-    { id:'p6', name:'KYT TT-Course', category:'capacetes', price:890, description:'Capacete de corrida com ventilação superior e casco em fibra de carbono.', imageUrl:'' },
-    { id:'p7', name:'Alpinestars GP Plus R V4', category:'macacoes', price:5800, description:'Macacão de couro para uso em pista. Proteções CE Level 2 em cotovelos, joelhos e ombros.', imageUrl:'', badge:'Homologado' },
-    { id:'p8', name:'Dainese Laguna Seca 5', category:'macacoes', price:6200, description:'Macacão de corrida profissional. Pele canguru e proteção lombar incluída.', imageUrl:'' },
-    { id:'p9', name:'Alpinestars SP-8 V3', category:'luvas', price:380, description:'Luvas curtas esportivas com proteção nos nós dos dedos. Palmilha de ventilação.', imageUrl:'' },
-    { id:'p10', name:'Dainese Carbon 4 Short', category:'luvas', price:420, description:'Luvas de carbono para uso em pista. Proteção dorsal em carbono.', imageUrl:'' },
-    { id:'p11', name:'Brembo SC Compound', category:'pastilhas', price:180, description:'Pastilhas de freio de alto desempenho para uso em pista. Material sintetizado SC.', imageUrl:'' },
-    { id:'p12', name:'Ferodo Xrac FE', category:'pastilhas', price:160, description:'Pastilhas de corrida para discos duplos. Alta resistência ao calor.', imageUrl:'' },
-    { id:'p13', name:'Motul 7100 10W40 4L', category:'oleos', price:185, description:'Óleo de motor sintético 100% para motos 4T. Alta proteção e performance.', imageUrl:'' },
-    { id:'p14', name:'Castrol Power1 Racing 10W50', category:'oleos', price:168, description:'Óleo sintético de alta performance para motores de corrida e esportivos.', imageUrl:'' },
-    { id:'p15', name:'Vonix Cavalete Dianteiro', category:'cavaletes', price:320, description:'Cavalete dianteiro de alumínio para motos esportivas. Suporta até 250kg.', imageUrl:'', badge:'Vonix' },
-    { id:'p16', name:'Vonix Stand Traseiro Pro', category:'cavaletes', price:280, description:'Cavalete traseiro universal para motos com carretel ou sem. Acabamento em preto.', imageUrl:'', badge:'Vonix' },
-    { id:'p17', name:'Vonix Kit Filtro de Ar', category:'pecas', price:220, description:'Kit filtro de ar de alta performance. Aumenta eficiência do motor em até 8%.', imageUrl:'', badge:'Vonix' },
-    { id:'p18', name:'Pastilhas Embreagem Completo', category:'pecas', price:145, description:'Jogo completo de pastilhas de embreagem para motos 600–1000cc.', imageUrl:'' },
-    { id:'p19', name:'Kit Limpeza Moto Vonix', category:'limpeza', price:89, description:'Kit completo para limpeza de motos: shampoo, cera, desengordurante e pano microfibra.', imageUrl:'', badge:'Vonix' },
-    { id:'p20', name:'Silkolene Pro Clean 1L', category:'limpeza', price:68, description:'Limpador multiuso para motos. Remove graxa, óleo e resíduos de pneu.', imageUrl:'' },
+    {id:'p1', name:'Pirelli Diablo Rosso IV', category:'pneus', price:890, description:'Pneu traseiro de alto desempenho para uso em pista e rua. 190/55 ZR17.', badge:'Destaque'},
+    {id:'p2', name:'Michelin Power RS', category:'pneus', price:720, description:'Pneu esportivo para motos de alta cilindrada. Excelente aderência em pista seca.'},
+    {id:'p3', name:'Bridgestone S22', category:'pneus', price:650, description:'Pneu radial para superbikes. Alta performance em pista molhada e seca.'},
+    {id:'p4', name:'Akrapovic Slip-On S1000RR', category:'escapamentos', price:3200, description:'Escapamento esportivo em titânio com homologação. Som e performance incomparáveis.', badge:'Premium'},
+    {id:'p5', name:'Arrow Dark Pro-Race', category:'escapamentos', price:2400, description:'Escapamento de alto desempenho, construção em alumínio de aviação.'},
+    {id:'p6', name:'KYT NF-R', category:'capacetes', price:1100, description:'Capacete integral de alta performance. Aprovado ECE 22.06. Viseira anti-embaçamento.', badge:'KYT'},
+    {id:'p7', name:'KYT TT-Course', category:'capacetes', price:890, description:'Capacete de corrida com ventilação superior e casco em fibra de carbono.', badge:'KYT'},
+    {id:'p8', name:'Alpinestars GP Plus R V4', category:'macacoes', price:5800, description:'Macacão de couro para uso em pista. Proteções CE Level 2.', badge:'Homologado'},
+    {id:'p9', name:'Dainese Laguna Seca 5', category:'macacoes', price:6200, description:'Macacão de corrida profissional. Pele canguru e proteção lombar incluída.'},
+    {id:'p10', name:'Alpinestars SP-8 V3', category:'luvas', price:380, description:'Luvas curtas esportivas com proteção nos nós dos dedos.'},
+    {id:'p11', name:'Dainese Carbon 4 Short', category:'luvas', price:420, description:'Luvas de carbono para uso em pista. Proteção dorsal em carbono.'},
+    {id:'p12', name:'Brembo SC Compound', category:'pastilhas', price:180, description:'Pastilhas de freio de alto desempenho para uso em pista.'},
+    {id:'p13', name:'Ferodo Xrac FE', category:'pastilhas', price:160, description:'Pastilhas de corrida para discos duplos. Alta resistência ao calor.'},
+    {id:'p14', name:'Motul 7100 10W40 4L', category:'oleos', price:185, description:'Óleo de motor sintético 100% para motos 4T. Alta proteção e performance.'},
+    {id:'p15', name:'Castrol Power1 Racing 10W50', category:'oleos', price:168, description:'Óleo sintético de alta performance para motores de corrida.'},
+    {id:'p16', name:'Vonix Cavalete Dianteiro', category:'cavaletes', price:320, description:'Cavalete dianteiro de alumínio para motos esportivas.', badge:'Vonix'},
+    {id:'p17', name:'Vonix Stand Traseiro Pro', category:'cavaletes', price:280, description:'Cavalete traseiro universal. Acabamento em preto fosco.', badge:'Vonix'},
+    {id:'p18', name:'Vonix Kit Filtro de Ar', category:'pecas', price:220, description:'Kit filtro de ar de alta performance. Aumenta eficiência do motor.', badge:'Vonix'},
+    {id:'p19', name:'Pastilhas Embreagem Completo', category:'pecas', price:145, description:'Jogo completo de pastilhas de embreagem para motos 600–1000cc.'},
+    {id:'p20', name:'Kit Limpeza Moto Vonix', category:'limpeza', price:89, description:'Kit completo para limpeza de motos: shampoo, cera, desengordurante e pano.', badge:'Vonix'},
+    {id:'p21', name:'Silkolene Pro Clean 1L', category:'limpeza', price:68, description:'Limpador multiuso para motos. Remove graxa, óleo e resíduos de pneu.'},
   ];
+}
+
+function updateCountBadges() {
+  const counts = {};
+  allProducts.forEach(p => {
+    counts[p.category] = (counts[p.category] || 0) + 1;
+  });
+  document.getElementById('count-all').textContent = allProducts.length;
+  Object.entries(counts).forEach(([cat, n]) => {
+    const el = document.getElementById('count-' + cat);
+    if (el) el.textContent = n;
+  });
 }
 
 window.renderProducts = function() {
   const search = document.getElementById('search-input')?.value.toLowerCase() || '';
   const sort = document.getElementById('sort-select')?.value || 'name';
-
   let filtered = allProducts.filter(p => {
     const matchCat = currentCategory === 'all' || p.category === currentCategory;
     const matchSearch = !search || p.name.toLowerCase().includes(search) || p.description?.toLowerCase().includes(search);
     return matchCat && matchSearch;
   });
-
-  filtered.sort((a, b) => {
-    if (sort === 'price_asc') return a.price - b.price;
-    if (sort === 'price_desc') return b.price - a.price;
+  filtered.sort((a,b) => {
+    if (sort === 'price_asc') return (a.price||0) - (b.price||0);
+    if (sort === 'price_desc') return (b.price||0) - (a.price||0);
     return a.name.localeCompare(b.name);
   });
-
   document.getElementById('products-count').textContent =
-    `${filtered.length} produto${filtered.length !== 1 ? 's' : ''} encontrado${filtered.length !== 1 ? 's' : ''}`;
+    filtered.length + ' produto' + (filtered.length !== 1 ? 's' : '');
 
   const container = document.getElementById('products-container');
   if (filtered.length === 0) {
-    container.innerHTML = `
-      <div class="products-grid">
-        <div class="empty-state">
-          <div class="empty-icon">🔍</div>
-          <div class="empty-title">Nenhum produto encontrado</div>
-          <div class="empty-sub">Tente outro termo ou categoria</div>
-        </div>
-      </div>`;
+    container.innerHTML = '<div class="products-grid"><div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">Nenhum produto encontrado</div><div class="empty-sub">Tente outro termo ou categoria</div></div></div>';
     return;
   }
 
-  container.innerHTML = `<div class="products-grid">${filtered.map(p => `
-    <div class="product-card" onclick="openProductModal('${p.id}')">
+  const WA_ICON = `<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+
+  container.innerHTML = '<div class="products-grid">' + filtered.map(p => {
+    const waMsg = encodeURIComponent('Olá! Vi o catálogo da 200 Racing e tenho interesse no produto: ' + p.name);
+    const priceHtml = p.price
+      ? `<div class="product-price">R$ ${p.price.toFixed(2).replace('.', ',')}</div>`
+      : `<div class="product-price no-price">Consulte</div>`;
+    return `
+    <div class="product-card" onclick="openModal('${p.id}')">
       <div class="product-card-img">
         ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}">` : getCategoryIcon(p.category)}
         ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
@@ -510,12 +462,14 @@ window.renderProducts = function() {
         <div class="product-name">${p.name}</div>
         <div class="product-desc">${p.description || ''}</div>
         <div class="product-footer">
-          <div class="product-price">R$ ${p.price.toFixed(2).replace('.', ',')}</div>
-          <button class="btn-add-cart" onclick="event.stopPropagation();addToCart('${p.id}')">+ Carrinho</button>
+          ${priceHtml}
+          <a class="btn-consultar" href="https://wa.me/5562998646666?text=${waMsg}" target="_blank" onclick="event.stopPropagation()">
+            ${WA_ICON} Consultar
+          </a>
         </div>
       </div>
-    </div>
-  `).join('')}</div>`;
+    </div>`;
+  }).join('') + '</div>';
 };
 
 window.selectCategory = function(cat, el) {
@@ -530,72 +484,43 @@ window.selectCategory = function(cat, el) {
 
 window.filterProducts = function() { renderProducts(); };
 
-window.addToCart = function(id) {
-  const p = allProducts.find(x => x.id === id);
-  if (p) Cart.add(p);
-};
-
-window.openProductModal = function(id) {
+window.openModal = function(id) {
   const p = allProducts.find(x => x.id === id);
   if (!p) return;
+  const waMsg = encodeURIComponent('Olá! Vi o catálogo da 200 Racing e tenho interesse no produto: ' + p.name);
+  const WA_ICON = `<svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
   document.getElementById('modal-content').innerHTML = `
-    <div class="product-detail-img">${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}">` : getCategoryIcon(p.category)}</div>
-    <div class="product-detail-info">
-      <div class="detail-cat">${getCategoryLabel(p.category)}</div>
-      <div class="detail-name">${p.name}</div>
-      <div class="detail-price">R$ ${p.price.toFixed(2).replace('.', ',')}</div>
-      <div class="detail-desc">${p.description || 'Sem descrição disponível.'}</div>
-      <button class="btn-add-cart" style="width:100%;padding:16px;font-size:13px" onclick="addToCart('${p.id}');closeProductModal()">
-        🛒 Adicionar ao Carrinho
-      </button>
-    </div>
-  `;
+    <div class="modal-img">${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}">` : getCategoryIcon(p.category)}</div>
+    <div class="modal-body">
+      <div class="modal-cat">${getCategoryLabel(p.category)}</div>
+      <div class="modal-name">${p.name}</div>
+      ${p.price ? `<div class="modal-price">R$ ${p.price.toFixed(2).replace('.', ',')}</div>` : `<div class="modal-price no-price">Consulte disponibilidade</div>`}
+      <div class="modal-desc">${p.description || 'Sem descrição disponível.'}</div>
+      <a class="btn-consultar" href="https://wa.me/5562998646666?text=${waMsg}" target="_blank"
+         style="display:inline-flex;padding:14px 24px;font-size:12px;gap:8px">
+        ${WA_ICON} Consultar pelo WhatsApp
+      </a>
+    </div>`;
   document.getElementById('product-modal').classList.add('open');
 };
 
-window.closeProductModal = function(e) {
+window.closeModal = function(e) {
   if (!e || e.target === document.getElementById('product-modal'))
     document.getElementById('product-modal').classList.remove('open');
 };
 
-window.goCheckout = () => {
-  const items = Cart.get();
-  if (items.length === 0) { showToast('Seu carrinho está vazio', 'info'); return; }
-  window.location.href = 'checkout.html';
-};
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('product-modal')?.classList.remove('open');
+});
 
 Cart.updateUI();
 loadProducts();
 </script>
 
 <script>
-function toggleDrawer() {
-  const d = document.getElementById('side-drawer');
-  const o = document.getElementById('drawer-overlay');
-  const b = document.getElementById('hamburger-btn');
-  const isOpen = d.classList.contains('open');
-  if (isOpen) {
-    d.classList.remove('open');
-    o.classList.remove('open');
-    b.classList.remove('open');
-    document.body.style.overflow = '';
-  } else {
-    d.classList.add('open');
-    o.classList.add('open');
-    b.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-}
-function closeDrawer() {
-  document.getElementById('side-drawer')?.classList.remove('open');
-  document.getElementById('drawer-overlay')?.classList.remove('open');
-  document.getElementById('hamburger-btn')?.classList.remove('open');
-  document.body.style.overflow = '';
-}
-// Close on resize to desktop
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 900) closeDrawer();
-});
+function toggleDrawer(){const d=document.getElementById('side-drawer'),o=document.getElementById('drawer-overlay'),b=document.getElementById('hamburger-btn'),isOpen=d.classList.contains('open');if(isOpen){d.classList.remove('open');o.classList.remove('open');b.classList.remove('open');document.body.style.overflow='';}else{d.classList.add('open');o.classList.add('open');b.classList.add('open');document.body.style.overflow='hidden';}}
+function closeDrawer(){document.getElementById('side-drawer')?.classList.remove('open');document.getElementById('drawer-overlay')?.classList.remove('open');document.getElementById('hamburger-btn')?.classList.remove('open');document.body.style.overflow='';}
+window.addEventListener('resize',()=>{if(window.innerWidth>900)closeDrawer();});
 </script>
 </body>
 </html>
