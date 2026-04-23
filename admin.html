@@ -238,6 +238,7 @@ body { padding-top: var(--nav-h); background: var(--black); }
       <div class="admin-menu-item" onclick="showSection('products', this)">📦 Produtos</div>
       <div class="admin-menu-item" onclick="showSection('orders', this)">🧾 Consultas WA</div>
       <div class="admin-menu-item" onclick="showSection('users', this)">👥 Usuários</div>
+      <div class="admin-menu-item" onclick="showSection('gallery', this)">📸 Galeria</div>
     </aside>
 
     <main class="admin-main">
@@ -357,8 +358,10 @@ body { padding-top: var(--nav-h); background: var(--black); }
 import {
   auth, onAuthStateChanged, getCurrentUserRole, logout,
   getProducts, saveProduct as fbSaveProduct, deleteProduct as fbDeleteProduct,
-  getAllOrders, db, collection, getDocs, updateDoc, doc
+  getAllOrders, db, collection, getDocs, updateDoc, doc, serverTimestamp
 } from './js/firebase-config.js';
+import { addDoc, deleteDoc, where, query, orderBy }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 let allProducts = [];
 let allOrders = [];
@@ -627,6 +630,135 @@ window.updateUserRole = async function(uid, role) {
     if (idx > -1) allUsers[idx].role = role;
     showToast(`Perfil atualizado para ${role === 'admin' ? 'Admin' : 'Cliente'}.`, 'success');
   } catch(e) { showToast('Erro ao atualizar perfil.', 'error'); }
+};
+
+
+// ── GALLERY ADMIN ──────────────────────────────────────────
+let galleryPhotos = [];
+
+async function loadGalleryAdmin() {
+  const cat = document.getElementById('gal-cat-filter')?.value || '';
+  try {
+    let q = cat
+      ? query(collection(db, 'gallery'), where('category', '==', cat), orderBy('order', 'asc'))
+      : query(collection(db, 'gallery'), orderBy('order', 'asc'));
+    const snap = await getDocs(q);
+    galleryPhotos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch(e) {
+    galleryPhotos = [];
+  }
+  renderGalleryAdmin();
+}
+
+function renderGalleryAdmin() {
+  const grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+  if (!galleryPhotos.length) {
+    grid.innerHTML = '<div style="color:var(--grey);font-family:var(--font-cond);font-size:12px;letter-spacing:2px;text-transform:uppercase;grid-column:1/-1;padding:40px;text-align:center">Nenhuma foto cadastrada ainda. Clique em + Adicionar Foto.</div>';
+    return;
+  }
+  grid.innerHTML = galleryPhotos.map(p => `
+    <div style="background:var(--dark);border:1px solid var(--border2);overflow:hidden;position:relative">
+      <img src="${p.imageUrl}" style="width:100%;height:160px;object-fit:cover;display:block"
+           onerror="this.style.display='none'">
+      <div style="padding:10px">
+        <div style="font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.title || '–'}</div>
+        <div style="font-family:var(--font-cond);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--grey)">${p.category || '–'} · #${p.order || 0}</div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <button class="btn-edit" onclick="openGalleryForm('${p.id}')" style="flex:1;padding:6px">Editar</button>
+          <button class="btn-delete" onclick="deleteGalleryPhoto('${p.id}')" style="padding:6px 10px">🗑</button>
+        </div>
+      </div>
+    </div>`
+  ).join('');
+}
+
+window.openGalleryForm = function(id = null) {
+  const p = id ? galleryPhotos.find(x => x.id === id) : null;
+  document.getElementById('gal-modal-title').textContent = p ? 'Editar Foto' : 'Adicionar Foto';
+  document.getElementById('gal-edit-id').value = id || '';
+  document.getElementById('gal-url').value = p?.imageUrl || '';
+  document.getElementById('gal-title').value = p?.title || '';
+  document.getElementById('gal-subtitle').value = p?.subtitle || '';
+  document.getElementById('gal-category').value = p?.category || 'motos';
+  document.getElementById('gal-order').value = p?.order ?? '';
+  document.getElementById('gal-error').classList.remove('visible');
+  // Preview
+  if (p?.imageUrl) {
+    document.getElementById('gal-preview').style.display = 'block';
+    document.getElementById('gal-preview-img').src = p.imageUrl;
+  } else {
+    document.getElementById('gal-preview').style.display = 'none';
+  }
+  // URL input preview on change
+  document.getElementById('gal-url').oninput = function() {
+    const url = this.value.trim();
+    if (url) {
+      document.getElementById('gal-preview').style.display = 'block';
+      document.getElementById('gal-preview-img').src = url;
+    }
+  };
+  const modal = document.getElementById('gallery-modal');
+  modal.style.display = 'flex';
+  modal.style.pointerEvents = 'all';
+  modal.style.opacity = '1';
+};
+
+window.closeGalleryModal = function(e) {
+  if (!e || e.target === document.getElementById('gallery-modal')) {
+    const modal = document.getElementById('gallery-modal');
+    modal.style.opacity = '0';
+    modal.style.pointerEvents = 'none';
+    setTimeout(() => { modal.style.display = 'none'; }, 250);
+  }
+};
+
+window.saveGalleryPhoto = async function() {
+  const id = document.getElementById('gal-edit-id').value || null;
+  const imageUrl = document.getElementById('gal-url').value.trim();
+  const title = document.getElementById('gal-title').value.trim();
+  const subtitle = document.getElementById('gal-subtitle').value.trim();
+  const category = document.getElementById('gal-category').value;
+  const order = parseInt(document.getElementById('gal-order').value) || 99;
+  const errEl = document.getElementById('gal-error');
+  errEl.classList.remove('visible');
+
+  if (!imageUrl) {
+    errEl.textContent = 'A URL da imagem é obrigatória.';
+    errEl.classList.add('visible'); return;
+  }
+
+  const btn = document.getElementById('gal-save-btn');
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  try {
+    const data = { imageUrl, title, subtitle, category, order, updatedAt: serverTimestamp() };
+    if (id) {
+      await updateDoc(doc(db, 'gallery', id), data);
+    } else {
+      data.createdAt = serverTimestamp();
+      await addDoc(collection(db, 'gallery'), data);
+    }
+    closeGalleryModal();
+    await loadGalleryAdmin();
+    showToast(id ? 'Foto atualizada!' : 'Foto adicionada!', 'success');
+  } catch(e) {
+    errEl.textContent = 'Erro ao salvar. Tente novamente.';
+    errEl.classList.add('visible');
+  }
+  btn.disabled = false; btn.textContent = 'Salvar Foto';
+};
+
+window.deleteGalleryPhoto = async function(id) {
+  if (!confirm('Excluir esta foto da galeria?')) return;
+  try {
+    await deleteDoc(doc(db, 'gallery', id));
+    galleryPhotos = galleryPhotos.filter(p => p.id !== id);
+    renderGalleryAdmin();
+    showToast('Foto excluída.', 'info');
+  } catch(e) {
+    showToast('Erro ao excluir.', 'error');
+  }
 };
 
 window.showSection = function(section, el) {
