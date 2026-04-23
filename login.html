@@ -220,7 +220,7 @@ function updateDrawerAuth(user, role) {
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     const role = await getCurrentUserRole(user.uid);
-    window.location.href = role === 'admin' ? 'admin.html' : (localStorage.getItem('redirect_after_login') || 'loja.html');
+    window.location.href = role === 'admin' ? 'admin.html' : (localStorage.getItem('redirect_after_login') || 'catalogo.html');
   }
 });
 
