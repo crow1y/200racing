@@ -404,7 +404,7 @@ body { padding-top: var(--nav-h); }
 </div>
 
 <!-- STATS -->
-<div class="racing-stats">
+<div class="racing-stats" id="racing-stats-bar">
   <div class="racing-stat">
     <div class="racing-stat-val">12+</div>
     <div class="racing-stat-label">Campeonatos disputados</div>
@@ -429,7 +429,7 @@ body { padding-top: var(--nav-h); }
   <h2 class="section-title">Campeonatos &<br>Eventos</h2>
   <p class="section-sub">Acompanhe nossa participação nas principais competições do estado e do país.</p>
 
-  <div class="camp-grid">
+  <div class="camp-grid" id="camp-grid-dynamic">
     <!-- ═══════════════════════════════════════════════════
          📅 ADICIONAR / EDITAR CAMPEONATOS
          Duplique o bloco .camp-card abaixo para cada evento.
@@ -504,7 +504,7 @@ body { padding-top: var(--nav-h); }
   <h2 class="section-title">Motos de<br><span style="color:var(--red)">Corrida</span></h2>
   <p class="section-sub">Nossas máquinas preparadas para pista. Disponíveis para venda — consulte condições.</p>
 
-  <div class="motos-grid">
+  <div class="motos-grid" id="motos-grid-dynamic">
     <!-- ═══════════════════════════════════════════════════
          🏍️ ADICIONAR MOTOS DE CORRIDA
          Duplique o bloco .moto-card para cada moto.
@@ -566,7 +566,7 @@ body { padding-top: var(--nav-h); }
   <h2 class="section-title">Pilotos &<br><span style="color:var(--red)">Equipe</span></h2>
   <p class="section-sub">Conheça os pilotos apoiados e a equipe técnica da 200 Racing.</p>
 
-  <div class="equipe-grid">
+  <div class="equipe-grid" id="pilotos-grid-dynamic">
     <!-- ═══════════════════════════════════════════════════
          👤 ADICIONAR PILOTOS / MEMBROS DA EQUIPE
          Duplique o bloco .piloto-card para cada membro.
@@ -738,5 +738,114 @@ window.addEventListener('resize', () => {
   </svg>
   <span class="wa-float-tooltip">Fale conosco</span>
 </a>
+
+<script type="module">
+import { auth, onAuthStateChanged, getCurrentUserRole, logout, db }
+  from './js/firebase-config.js';
+import { collection, getDocs, query, orderBy }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+onAuthStateChanged(auth, async user => {
+  const role = user ? await getCurrentUserRole(user.uid) : null;
+  updateNavAuth(user, role);
+  if (typeof updateDrawerAuth === 'function') updateDrawerAuth(user, role);
+});
+window.handleLogout = async () => { const { logout } = await import('./js/firebase-config.js'); await logout(); };
+
+async function loadRacingData() {
+  // STATS
+  try {
+    const snap = await getDocs(query(collection(db, 'racing_stats'), orderBy('order','asc')));
+    const stats = snap.docs.map(d => d.data());
+    if (stats.length) {
+      const statsEl = document.getElementById('racing-stats-bar');
+      if (statsEl) {
+        statsEl.innerHTML = stats.map(s => `
+          <div class="racing-stat">
+            <div class="racing-stat-val">${s.value}</div>
+            <div class="racing-stat-label">${s.label}</div>
+          </div>`).join('');
+      }
+    }
+  } catch(e) {}
+
+  // CAMPEONATOS
+  try {
+    const snap = await getDocs(query(collection(db, 'racing_campeonatos'), orderBy('order','asc')));
+    const items = snap.docs.map(d => d.data());
+    if (items.length) {
+      const el = document.getElementById('camp-grid-dynamic');
+      if (el) {
+        el.innerHTML = items.map(c => `
+          <div class="camp-card">
+            <div class="camp-year">${c.year||''}</div>
+            <div class="camp-name">${(c.name||'').replace(' ','<br><span>')}<span style="display:none">x</span></div>
+            <p class="camp-desc">${c.desc||''}</p>
+            <div class="camp-meta">
+              ${c.status ? `<span class="camp-tag red">${c.status}</span>` : ''}
+              ${(c.tags||[]).map(t=>`<span class="camp-tag">${t}</span>`).join('')}
+            </div>
+          </div>`).join('');
+      }
+    }
+  } catch(e) {}
+
+  // MOTOS
+  try {
+    const snap = await getDocs(query(collection(db, 'racing_motos'), orderBy('order','asc')));
+    const items = snap.docs.map(d => d.data());
+    if (items.length) {
+      const el = document.getElementById('motos-grid-dynamic');
+      if (el) {
+        el.innerHTML = items.map(m => `
+          <div class="moto-card">
+            <div class="moto-img-area">
+              ${m.imageUrl ? `<img src="${m.imageUrl}" alt="${m.name}" style="width:100%;height:100%;object-fit:cover">` : '<div class="moto-img-placeholder">🏍️<span>Sem foto</span></div>'}
+            </div>
+            <div class="moto-info">
+              <div class="moto-brand">${m.brand||''}</div>
+              <div class="moto-name">${(m.name||'').replace(' ','<br>')}</div>
+              <ul class="moto-specs">
+                ${m.motor ? `<li class="moto-spec"><span class="spec-label">Motor</span><span class="spec-val">${m.motor}</span></li>` : ''}
+                ${m.power ? `<li class="moto-spec"><span class="spec-label">Potência</span><span class="spec-val">${m.power}</span></li>` : ''}
+                ${m.weight ? `<li class="moto-spec"><span class="spec-label">Peso</span><span class="spec-val">${m.weight}</span></li>` : ''}
+                ${m.category ? `<li class="moto-spec"><span class="spec-label">Categoria</span><span class="spec-val">${m.category}</span></li>` : ''}
+              </ul>
+              <div class="moto-price">${m.price||'Consulte'} <small>${m.price?'ou consulte':''}</small></div>
+              <a href="https://wa.me/5562998646666?text=Tenho%20interesse%20na%20${encodeURIComponent(m.name||'moto')}" target="_blank" class="btn-red" style="align-self:flex-start">Consultar →</a>
+            </div>
+          </div>`).join('');
+      }
+    }
+  } catch(e) {}
+
+  // PILOTOS
+  try {
+    const snap = await getDocs(query(collection(db, 'racing_pilotos'), orderBy('order','asc')));
+    const items = snap.docs.map(d => d.data());
+    if (items.length) {
+      const el = document.getElementById('pilotos-grid-dynamic');
+      if (el) {
+        el.innerHTML = items.map(p => `
+          <div class="piloto-card">
+            <div class="piloto-img">
+              ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;object-position:top">` : '👤'}
+            </div>
+            <div class="piloto-body">
+              <div class="piloto-num">${p.role?.split('·')[0]?.trim()||'#–'}</div>
+              <div class="piloto-name">${p.name||''}</div>
+              <div class="piloto-role">${p.role||''}</div>
+              <div class="piloto-tags">
+                ${(p.tags||[]).map(t=>`<span class="piloto-tag">${t}</span>`).join('')}
+              </div>
+            </div>
+          </div>`).join('');
+      }
+    }
+  } catch(e) {}
+}
+
+loadRacingData();
+</script>
 </body>
 </html>
