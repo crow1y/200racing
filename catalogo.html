@@ -284,10 +284,15 @@ body { padding-top: var(--nav-h); }
 .modal-bg {
   position: fixed; inset: 0;
   background: rgba(0,0,0,.9);
-  display: none; align-items: center; justify-content: center;
+  display: none;
+  align-items: center; justify-content: center;
   z-index: 1000; padding: 20px;
+  pointer-events: none;
 }
-.modal-bg.open { display: flex; }
+.modal-bg.open {
+  display: flex;
+  pointer-events: all;
+}
 .modal-box {
   background: var(--panel); border: 1px solid var(--border2);
   width: 100%; max-width: 580px;
@@ -851,16 +856,24 @@ window.openMod = function(id) {
         Consultar pelo WhatsApp
       </a>
     </div>`;
-  document.getElementById('modal-bg').classList.add('open');
+  const mb = document.getElementById('modal-bg');
+  mb.style.pointerEvents = 'all';
+  mb.classList.add('open');
 };
 
 window.closeMod = function(e) {
-  if (!e || e.target===document.getElementById('modal-bg'))
-    document.getElementById('modal-bg').classList.remove('open');
+  if (!e || e.target===document.getElementById('modal-bg')) {
+    const mb = document.getElementById('modal-bg');
+    mb.classList.remove('open');
+    mb.style.pointerEvents = 'none';
+  }
 };
 
 document.addEventListener('keydown', e => {
-  if (e.key==='Escape') document.getElementById('modal-bg')?.classList.remove('open');
+  if (e.key==='Escape') {
+    const mb = document.getElementById('modal-bg');
+    if (mb) { mb.classList.remove('open'); mb.style.pointerEvents = 'none'; }
+  }
 });
 
 // ── URL param ──────────────────────────────────────────────
