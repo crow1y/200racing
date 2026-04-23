@@ -143,11 +143,11 @@ body { padding-top: var(--nav-h); }
 /* ── PRODUCT DETAIL MODAL ──────────────────────────────── */
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,.88);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .25s;
-  padding: 20px;
+  display: none; align-items: center; justify-content: center;
+  z-index: 1000; transition: opacity .25s;
+  padding: 20px; opacity: 0;
 }
-.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-overlay.open { display: flex; opacity: 1; pointer-events: all; }
 .modal {
   background: var(--panel); border: 1px solid var(--border2);
   width: 100%; max-width: 640px;
@@ -501,16 +501,24 @@ window.openModal = function(id) {
         ${WA_ICON} Consultar pelo WhatsApp
       </a>
     </div>`;
-  document.getElementById('product-modal').classList.add('open');
+  const m = document.getElementById('product-modal');
+  m.style.display = 'flex';
+  requestAnimationFrame(() => m.classList.add('open'));
 };
 
 window.closeModal = function(e) {
-  if (!e || e.target === document.getElementById('product-modal'))
-    document.getElementById('product-modal').classList.remove('open');
+  if (!e || e.target === document.getElementById('product-modal')) {
+    const m = document.getElementById('product-modal');
+    m.classList.remove('open');
+    setTimeout(() => { if (!m.classList.contains('open')) m.style.display = 'none'; }, 260);
+  }
 };
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('product-modal')?.classList.remove('open');
+  if (e.key === 'Escape') {
+    const m = document.getElementById('product-modal');
+    if (m) { m.classList.remove('open'); setTimeout(() => { if (!m.classList.contains('open')) m.style.display = 'none'; }, 260); }
+  }
 });
 
 Cart.updateUI();
