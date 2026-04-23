@@ -26,13 +26,13 @@ body { padding-top: var(--nav-h); background: var(--black); }
 .admin-menu-item:hover { color: var(--white); background: var(--panel2); }
 .admin-menu-item.active { color: var(--white); border-left-color: var(--red); background: var(--panel2); }
 
-.admin-main { padding: 48px 56px; overflow-y: auto; }
+.admin-main { padding: 48px 56px; overflow-y: auto; min-height: calc(100vh - var(--nav-h)); background: var(--black); }
 .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
 .admin-title { font-family: var(--font-display); font-size: 42px; letter-spacing: 1px; }
 .admin-title span { color: var(--red); }
 
 /* STATS CARDS */
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-bottom: 48px; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-bottom: 48px; min-height: 100px; }
 .stat-card { background: var(--panel); padding: 28px 24px; }
 .stat-card-val { font-family: var(--font-display); font-size: 38px; color: var(--red); letter-spacing: 1px; margin-bottom: 4px; }
 .stat-card-label { font-family: var(--font-cond); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); }
@@ -88,7 +88,7 @@ body { padding-top: var(--nav-h); background: var(--black); }
 .admin-tab:hover { color: var(--lgrey); }
 
 .tab-content { display: none; }
-.tab-content.active { display: block; }
+.tab-content.active { display: block; min-height: 400px; }
 
 @media (max-width: 900px) {
   .admin-layout { grid-template-columns: 1fr; }
@@ -240,7 +240,7 @@ body { padding-top: var(--nav-h); background: var(--black); }
       <div class="admin-menu-item" onclick="showSection('users', this)">👥 Usuários</div>
       <div class="admin-menu-item" onclick="showSection('gallery', this)">📸 Galeria</div>
       <div class="admin-menu-item" onclick="showSection('racing', this)">🏁 Racing</div>
-      <div class="admin-menu-item" onclick="showSection('gallery', this)">📸 Galeria</div>
+      
     </aside>
 
     <main class="admin-main">
