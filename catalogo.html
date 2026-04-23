@@ -765,19 +765,22 @@ window.pickSub = function(cat, sub, el) {
   renderGrid();
 };
 
+function goHome() { pickL1('all', document.getElementById('l1-all')); }
+
 function setBreadcrumb(parts) {
   const bc = document.getElementById('breadcrumb');
   if (!parts.length) {
     bc.innerHTML = '<span class="bc-item current">Todos os Produtos</span>';
     return;
   }
-  let h = '<span class="bc-item" onclick="pickL1('all',document.getElementById('l1-all'))">Todos</span>';
-  parts.forEach((p,i) => {
-    h += '<span class="bc-sep"> › </span>';
-    h += `<span class="bc-item ${i===parts.length-1?'current':''}">${p}</span>`;
+  let h = '<span class="bc-item" onclick="goHome()">Todos</span>';
+  parts.forEach(function(p, i) {
+    h += '<span class="bc-sep"> &rsaquo; </span>';
+    h += '<span class="bc-item' + (i === parts.length - 1 ? ' current' : '') + '">' + p + '</span>';
   });
   bc.innerHTML = h;
 }
+
 
 // mobile sidebar toggle
 window.toggleMobileSidebar = function() {
