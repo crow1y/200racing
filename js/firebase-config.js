@@ -58,10 +58,12 @@ async function getCurrentUserRole(uid) {
 // ── PRODUCT HELPERS ──────────────────────────────────────────
 async function getProducts(category = null) {
   let q = category
-    ? query(collection(db, "products"), where("category", "==", category), orderBy("name"))
-    : query(collection(db, "products"), orderBy("category"));
+    ? query(collection(db, "products"), where("category", "==", category))
+    : query(collection(db, "products"));
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  // Ordena no cliente para evitar necessidade de índice composto no Firestore
+  return docs.sort((a, b) => (a.category || '').localeCompare(b.category || '') || (a.name || '').localeCompare(b.name || ''));
 }
 
 async function saveProduct(data, id = null) {
