@@ -686,7 +686,8 @@ async function load() {
   try {
     products = await getProducts();
     if (!products.length) demo();
-  } catch { demo(); }
+  } catch(e) { console.error('Firebase error:', e); demo(); }
+  if (!products || !products.length) demo();
   refreshBadges();
   renderGrid();
 }
