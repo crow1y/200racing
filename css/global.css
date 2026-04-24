@@ -68,17 +68,30 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .nav-dropdown { position: relative; }
 .nav-dropdown-menu {
   display: none;
-  position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%);
-  background: var(--panel); border: 1px solid var(--border2);
-  min-width: 220px; padding: 8px 0; z-index: 300;
+  position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  padding-top: 16px;
+  background: transparent;
+  min-width: 220px; z-index: 300;
+}
+.nav-dropdown-menu::before {
+  content: '';
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--border2);
+  position: absolute;
+  top: 16px; left: 0; right: 0; bottom: 0;
+  z-index: -1;
 }
 .nav-dropdown:hover .nav-dropdown-menu { display: block; }
 .nav-dropdown-menu a {
+  position: relative;
   display: block; padding: 11px 20px;
   font-family: var(--font-cond); font-size: 12px; font-weight: 700;
   letter-spacing: 2px; text-transform: uppercase; color: var(--grey);
   transition: background .15s, color .15s;
 }
+.nav-dropdown-menu a:first-child { margin-top: 8px; }
+.nav-dropdown-menu a:last-child { margin-bottom: 8px; }
 .nav-dropdown-menu a:hover { background: var(--border); color: var(--white); }
 
 .nav-right { display: flex; align-items: center; gap: 16px; }
