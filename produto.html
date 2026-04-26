@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Produto – 200 Racing</title>
+<link rel="stylesheet" href="css/global.css">
+<style>
+body { padding-top: var(--nav-h); background: var(--black); }
+
+/* ═══════════ BREADCRUMB ═══════════ */
+.bc-bar {
+  padding: 14px 40px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-cond);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bc-bar a { color: var(--grey); text-decoration: none; transition: color .15s; }
+.bc-bar a:hover { color: var(--white); }
+.bc-sep { color: var(--border2); }
+.bc-current { color: var(--lgrey); }
+
+/* ═══════════ PRODUTO LAYOUT ═══════════ */
+.prod-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ═══════════ IMAGEM ═══════════ */
+.prod-img-wrap {
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+}
+.prod-img-main {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: var(--panel);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 100px;
+}
+.prod-img-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.prod-img-badge {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 4px 12px;
+  background: var(--red);
+  font-family: var(--font-cond);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+/* ═══════════ INFO ═══════════ */
+.prod-info { display: flex; flex-direction: column; gap: 0; }
+
+.prod-cat-tag {
+  font-family: var(--font-cond);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+
+.prod-name {
+  font-family: var(--font-display);
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.prod-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--red);
+  margin-bottom: 24px;
+}
+
+.prod-price-wrap { margin-bottom: 28px; }
+.prod-price {
+  font-family: var(--font-display);
+  font-size: 44px;
+  letter-spacing: 1px;
+  color: var(--red);
+  line-height: 1;
+}
+.prod-price-consulte {
+  font-family: var(--font-cond);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey);
+  border: 1px solid var(--border2);
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+.prod-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--lgrey);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  border-left: 2px solid var(--border2);
+  padding-left: 18px;
+}
+
+/* ═══════════ ACTIONS ═══════════ */
+.prod-actions { display: flex; flex-direction: column; gap: 12px; }
+
+.btn-wa-full {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 28px;
+  background: #25D366;
+  color: #fff;
+  font-family: var(--font-cond);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-wa-full:hover { background: #1ebe5a; }
+.btn-wa-full svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--grey);
+  font-family: var(--font-cond);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.btn-back:hover { color: var(--white); border-color: var(--grey); }
+
+/* ═══════════ META INFO ═══════════ */
+.prod-meta {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.prod-meta-row {
+  display: flex;
+  gap: 12px;
+  font-family: var(--font-cond);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.prod-meta-label { color: var(--grey); min-width: 100px; }
+.prod-meta-val { color: var(--lgrey); }
+
+/* ═══════════ LOADING / ERROR ═══════════ */
+.state-center {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+.state-icon { font-size: 56px; }
+.state-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 1px;
+}
+.state-sub {
+  font-size: 13px;
+  color: var(--grey);
+  margin-bottom: 8px;
+}
+
+/* ═══════════ SKELETON ═══════════ */
+@keyframes shimmer {
+  0% { background-position: -800px 0; }
+  100% { background-position: 800px 0; }
+}
+.sk {
+  background: linear-gradient(90deg, var(--panel) 25%, var(--panel2) 50%, var(--panel) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 2px;
+}
+.sk-img { width: 100%; aspect-ratio: 1/1; }
+.sk-tag { height: 14px; width: 120px; margin-bottom: 14px; }
+.sk-title { height: 52px; width: 85%; margin-bottom: 10px; }
+.sk-title2 { height: 52px; width: 60%; margin-bottom: 22px; }
+.sk-div { height: 2px; width: 48px; margin-bottom: 24px; }
+.sk-price { height: 44px; width: 160px; margin-bottom: 32px; }
+.sk-line { height: 13px; margin-bottom: 8px; }
+.sk-line.w80 { width: 80%; }
+.sk-line.w90 { width: 90%; }
+.sk-line.w60 { width: 60%; }
+.sk-btn { height: 52px; margin-bottom: 12px; }
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 800px) {
+  .bc-bar { padding: 12px 20px; }
+  .prod-page { grid-template-columns: 1fr; gap: 32px; padding: 28px 20px 60px; }
+  .prod-img-wrap { position: static; }
+  .prod-name { font-size: 36px; }
+  .prod-price { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nav-hamburger" id="hamburger-btn" onclick="toggleDrawer()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-left">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <div class="nav-brand">200 <span>RACING</span></div>
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="index.html#servicos">Serviços</a></li>
+    <li class="nav-dropdown">
+      <a href="catalogo.html">Catálogo ▾</a>
+      <div class="nav-dropdown-menu">
+        <a href="catalogo.html?cat=pneus">🔘 Pneus</a>
+        <a href="catalogo.html?cat=escapamentos">💨 Escapamentos</a>
+        <a href="catalogo.html?cat=capacetes">⛑️ Capacetes</a>
+        <a href="catalogo.html?cat=macacoes">🏁 Macacões</a>
+        <a href="catalogo.html?cat=luvas">🧤 Luvas</a>
+        <a href="catalogo.html?cat=pastilhas">🔩 Pastilhas</a>
+        <a href="catalogo.html?cat=oleos">🛢️ Óleos</a>
+        <a href="catalogo.html?cat=cavaletes">🔧 Cavaletes</a>
+        <a href="catalogo.html?cat=pecas">⚙️ Peças</a>
+        <a href="catalogo.html?cat=limpeza">🧴 Limpeza</a>
+      </div>
+    </li>
+    <li><a href="racing.html">Racing</a></li>
+    <li><a href="galeria.html">Galeria</a></li>
+    <li><a href="index.html#contato">Contato</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="btn-nav-login" id="nav-login-btn">Entrar</a>
+    <div class="nav-user" id="nav-user-area" style="display:none">
+      <img class="nav-user-photo" src="" alt="">
+      <span class="nav-user-name"></span>
+      <button onclick="handleLogout()" style="font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);background:none;border:none;cursor:pointer;margin-left:4px">Sair</button>
+    </div>
+    <a href="admin.html" id="nav-admin-link" class="btn-red" style="display:none;padding:9px 16px;font-size:11px">ADM</a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<div id="page-content">
+  <!-- Skeleton enquanto carrega -->
+  <div class="bc-bar">
+    <a href="catalogo.html">Catálogo</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">Carregando...</span>
+  </div>
+  <div class="prod-page" id="skeleton-area">
+    <div>
+      <div class="sk sk-img"></div>
+    </div>
+    <div>
+      <div class="sk sk-tag"></div>
+      <div class="sk sk-title"></div>
+      <div class="sk sk-title2"></div>
+      <div class="sk sk-div"></div>
+      <div class="sk sk-price"></div>
+      <div class="sk sk-line w90"></div>
+      <div class="sk sk-line w80"></div>
+      <div class="sk sk-line w60"></div>
+      <div style="margin-top:36px">
+        <div class="sk sk-btn"></div>
+        <div class="sk sk-btn"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/shared.js"></script>
+<script type="module">
+import { auth, onAuthStateChanged, getCurrentUserRole, logout, getProducts, doc, getDoc, db } from './js/firebase-config.js';
+
+// ── Auth ────────────────────────────────────────────────────
+function handleLogout() { logout().then(() => window.location.href = 'login.html'); }
+window.handleLogout = handleLogout;
+
+onAuthStateChanged(auth, async user => {
+  const loginBtn = document.getElementById('nav-login-btn');
+  const userArea = document.getElementById('nav-user-area');
+  const adminLink = document.getElementById('nav-admin-link');
+  if (user) {
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (userArea) {
+      userArea.style.display = 'flex';
+      userArea.querySelector('.nav-user-name').textContent = user.displayName?.split(' ')[0] || '';
+      const photo = userArea.querySelector('.nav-user-photo');
+      if (user.photoURL) { photo.src = user.photoURL; photo.style.display = 'block'; }
+    }
+    const role = await getCurrentUserRole();
+    if (role === 'admin' && adminLink) adminLink.style.display = 'block';
+  } else {
+    if (loginBtn) loginBtn.style.display = '';
+    if (userArea) userArea.style.display = 'none';
+  }
+});
+
+// ── Load product ────────────────────────────────────────────
+const productId = new URLSearchParams(location.search).get('id');
+
+function renderError(msg = 'Produto não encontrado.') {
+  document.getElementById('page-content').innerHTML = `
+    <div class="state-center">
+      <div class="state-icon">🔍</div>
+      <div class="state-title">OPS!</div>
+      <div class="state-sub">${msg}</div>
+      <a href="catalogo.html" class="btn-back" style="margin-top:8px">← Voltar ao Catálogo</a>
+    </div>`;
+}
+
+function renderProduct(p) {
+  const msg = encodeURIComponent('Olá! Tenho interesse no produto: ' + p.name);
+  const catLabel = getCategoryLabel(p.category);
+  const catIcon  = getCategoryIcon(p.category);
+
+  // Update page title and breadcrumb
+  document.title = p.name + ' – 200 Racing';
+
+  document.getElementById('page-content').innerHTML = `
+    <!-- BREADCRUMB -->
+    <div class="bc-bar">
+      <a href="catalogo.html">Catálogo</a>
+      <span class="bc-sep">›</span>
+      <a href="catalogo.html?cat=${p.category}">${catLabel}</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">${p.name}</span>
+    </div>
+
+    <!-- PRODUTO -->
+    <div class="prod-page">
+
+      <!-- IMAGEM -->
+      <div class="prod-img-wrap">
+        <div class="prod-img-main">
+          ${p.imageUrl
+            ? `<img src="${p.imageUrl}" alt="${p.name}">`
+            : `<span>${catIcon}</span>`}
+        </div>
+        ${p.badge ? `<span class="prod-img-badge">${p.badge}</span>` : ''}
+      </div>
+
+      <!-- INFO -->
+      <div class="prod-info">
+        <div class="prod-cat-tag">${catLabel}</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-divider"></div>
+
+        <div class="prod-price-wrap">
+          ${p.price
+            ? `<div class="prod-price">R$ ${p.price.toFixed(2).replace('.', ',')}</div>`
+            : `<div class="prod-price-consulte">Consulte disponibilidade</div>`}
+        </div>
+
+        ${p.description
+          ? `<div class="prod-desc">${p.description}</div>`
+          : ''}
+
+        <!-- AÇÕES -->
+        <div class="prod-actions">
+          <a class="btn-wa-full"
+             href="https://wa.me/5562998646666?text=${msg}"
+             target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Consultar pelo WhatsApp
+          </a>
+          <a class="btn-back" href="catalogo.html?cat=${p.category}">
+            ← Voltar ao Catálogo
+          </a>
+        </div>
+
+        <!-- META -->
+        <div class="prod-meta">
+          <div class="prod-meta-row">
+            <span class="prod-meta-label">Categoria</span>
+            <span class="prod-meta-val">${catLabel}</span>
+          </div>
+          ${p.subcategory ? `
+          <div class="prod-meta-row">
+            <span class="prod-meta-label">Subcategoria</span>
+            <span class="prod-meta-val">${p.subcategory}</span>
+          </div>` : ''}
+          <div class="prod-meta-row">
+            <span class="prod-meta-label">Disponível em</span>
+            <span class="prod-meta-val">200 Racing – Goiânia</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+async function load() {
+  if (!productId) { renderError('Nenhum produto especificado.'); return; }
+
+  try {
+    // Use getDoc directly (exported from firebase-config)
+    const snap = await getDoc(doc(db, 'products', productId));
+    if (snap.exists()) {
+      renderProduct({ id: snap.id, ...snap.data() });
+    } else {
+      renderError('Produto não encontrado.');
+    }
+  } catch(e) {
+    console.error('Erro ao carregar produto:', e);
+    // Fallback: busca em todos os produtos
+    try {
+      const all = await getProducts();
+      const p = all.find(x => x.id === productId);
+      p ? renderProduct(p) : renderError('Produto não encontrado.');
+    } catch(e2) {
+      renderError('Erro ao carregar o produto. Tente novamente.');
+    }
+  }
+}
+
+load();
+</script>
+
+<script>
+function toggleDrawer(){var d=document.getElementById('side-drawer'),o=document.getElementById('drawer-overlay'),b=document.getElementById('hamburger-btn');if(!d)return;var open=d.classList.contains('open');if(open){d.classList.remove('open');if(o)o.classList.remove('open');b.classList.remove('open');document.body.style.overflow='';}else{d.classList.add('open');if(o)o.classList.add('open');b.classList.add('open');document.body.style.overflow='hidden';}}
+function closeDrawer(){var d=document.getElementById('side-drawer'),o=document.getElementById('drawer-overlay'),b=document.getElementById('hamburger-btn');if(d)d.classList.remove('open');if(o)o.classList.remove('open');if(b)b.classList.remove('open');document.body.style.overflow='';}
+window.addEventListener('resize',function(){if(window.innerWidth>900)closeDrawer();});
+</script>
+</body>
+</html>

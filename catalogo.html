@@ -823,7 +823,7 @@ window.renderGrid = function() {
     '<div class="prod-grid">' + list.map(p => {
       const msg = encodeURIComponent('Olá! Tenho interesse no produto: '+p.name);
       return `
-      <div class="prod-card" onclick="openMod('${p.id}')">
+      <div class="prod-card" onclick="window.location.href='produto.html?id=${p.id}'" style="cursor:pointer">
         <div class="prod-card-img">
           ${p.imageUrl?`<img src="${p.imageUrl}" alt="${p.name}">`:getCategoryIcon(p.category)}
           ${p.badge?`<div class="prod-badge">${p.badge}</div>`:''}
