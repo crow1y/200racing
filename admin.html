@@ -716,79 +716,17 @@ function renderGalleryAdmin() {
 }
 
 window.openGalleryForm = function(id = null) {
-  const p = id ? galleryPhotos.find(x => x.id === id) : null;
-  document.getElementById('gal-modal-title').textContent = p ? 'Editar Foto' : 'Adicionar Foto';
-  document.getElementById('gal-edit-id').value = id || '';
-  document.getElementById('gal-url').value = p?.imageUrl || '';
-  document.getElementById('gal-title').value = p?.title || '';
-  document.getElementById('gal-subtitle').value = p?.subtitle || '';
-  document.getElementById('gal-category').value = p?.category || 'motos';
-  document.getElementById('gal-order').value = p?.order ?? '';
-  document.getElementById('gal-error').classList.remove('visible');
-  // Preview
-  if (p?.imageUrl) {
-    document.getElementById('gal-preview').style.display = 'block';
-    document.getElementById('gal-preview-img').src = p.imageUrl;
-  } else {
-    document.getElementById('gal-preview').style.display = 'none';
-  }
-  // URL input preview on change
-  document.getElementById('gal-url').oninput = function() {
-    const url = this.value.trim();
-    if (url) {
-      document.getElementById('gal-preview').style.display = 'block';
-      document.getElementById('gal-preview-img').src = url;
-    }
-  };
-  const modal = document.getElementById('gallery-modal');
-  modal.style.display = 'flex';
-  modal.style.pointerEvents = 'all';
-  modal.style.opacity = '1';
+  // Redireciona para openGalForm que usa o modal correto (#gal-modal)
+  openGalForm(id);
 };
 
 window.closeGalleryModal = function(e) {
-  if (!e || e.target === document.getElementById('gallery-modal')) {
-    const modal = document.getElementById('gallery-modal');
-    modal.style.opacity = '0';
-    modal.style.pointerEvents = 'none';
-    setTimeout(() => { modal.style.display = 'none'; }, 250);
-  }
+  closeGalModal(e);
 };
 
 window.saveGalleryPhoto = async function() {
-  const id = document.getElementById('gal-edit-id').value || null;
-  const imageUrl = document.getElementById('gal-url').value.trim();
-  const title = document.getElementById('gal-title').value.trim();
-  const subtitle = document.getElementById('gal-subtitle').value.trim();
-  const category = document.getElementById('gal-category').value;
-  const order = parseInt(document.getElementById('gal-order').value) || 99;
-  const errEl = document.getElementById('gal-error');
-  errEl.classList.remove('visible');
-
-  if (!imageUrl) {
-    errEl.textContent = 'A URL da imagem é obrigatória.';
-    errEl.classList.add('visible'); return;
-  }
-
-  const btn = document.getElementById('gal-save-btn');
-  btn.disabled = true; btn.textContent = 'Salvando...';
-
-  try {
-    const data = { imageUrl, title, subtitle, category, order, updatedAt: serverTimestamp() };
-    if (id) {
-      await updateDoc(doc(db, 'gallery', id), data);
-    } else {
-      data.createdAt = serverTimestamp();
-      await addDoc(collection(db, 'gallery'), data);
-    }
-    closeGalleryModal();
-    await loadGalleryAdmin();
-    showToast(id ? 'Foto atualizada!' : 'Foto adicionada!', 'success');
-  } catch(e) {
-    errEl.textContent = 'Erro ao salvar. Tente novamente.';
-    errEl.classList.add('visible');
-  }
-  btn.disabled = false; btn.textContent = 'Salvar Foto';
+  // Usa saveGalPhoto que referencia os IDs corretos do gal-modal
+  await saveGalPhoto();
 };
 
 window.deleteGalleryPhoto = async function(id) {
